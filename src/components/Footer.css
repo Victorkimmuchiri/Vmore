@@ -1,0 +1,94 @@
+.footer {
+  margin-top: 6rem;
+  background: var(--bg-rich);
+}
+.footer__gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 4rem;
+  padding: 6rem 0 4rem;
+}
+
+/* Brand column */
+.footer__logo {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 2rem;
+}
+.footer__logo-img {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover;
+}
+.footer__logo-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--cream); letter-spacing: 2px;
+  display: block; line-height: 1;
+}
+.footer__logo-sub {
+  font-size: .5rem; letter-spacing: 3px;
+  color: var(--gold); display: block; margin-top: 2px;
+}
+.footer__tagline {
+  color: var(--muted); font-size: .85rem;
+  line-height: 1.7; max-width: 300px;
+}
+
+/* Link columns */
+.footer__col h4 {
+  font-size: 1.1rem; margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+.footer__col ul { display: flex; flex-direction: column; gap: 1.2rem; }
+.footer__col a {
+  color: var(--sand); font-size: .85rem;
+  transition: color var(--dur-fast);
+}
+.footer__col a:hover { color: var(--gold); }
+
+/* Newsletter */
+.footer__newsletter-text {
+  color: var(--muted); font-size: .85rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.footer__form {
+  display: flex; gap: .5rem;
+}
+.footer__form input {
+  flex: 1; padding: .7rem 1rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 2px;
+  color: var(--cream);
+  font-family: var(--font-body); font-size: .85rem;
+}
+.footer__form input:focus {
+  outline: none; border-color: var(--gold);
+}
+.footer__form .btn {
+  padding: .7rem 1.2rem; font-size: .75rem;
+}
+
+/* Bottom bar */
+.footer__bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,.04);
+  font-size: .75rem; color: var(--muted);
+}
+.footer__bottom-links { display: flex; gap: 1.5rem; }
+.footer__bottom-links a { color: var(--muted); }
+.footer__bottom-links a:hover { color: var(--gold); }
+
+@media (max-width: 992px) {
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 576px) {
+  .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer__bottom { flex-direction: column; gap: .5rem; text-align: center; }
+}

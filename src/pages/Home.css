@@ -1,0 +1,190 @@
+/* ════════════════════ Hero ════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 600px;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: 0;
+}
+.hero__bg-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(.45);
+}
+.hero__overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(13,11,9,.3) 0%, rgba(13,11,9,.85) 100%),
+    linear-gradient(90deg, rgba(13,11,9,.6) 0%, transparent 60%);
+}
+
+.hero__content {
+  position: relative; z-index: 2;
+  max-width: 700px;
+}
+.hero__eyebrow {
+  display: block;
+  font-size: .7rem; letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .3s forwards;
+}
+.hero__title {
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .5s forwards;
+}
+.hero__title em {
+  color: var(--gold);
+  font-style: italic;
+}
+.hero__sub {
+  font-size: 1.1rem;
+  color: var(--sand);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .7s forwards;
+}
+.hero__actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .8s var(--ease-out) .9s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════ Section Heads ════════════════════ */
+.section-head {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.section-head__eyebrow {
+  display: block;
+  font-size: .65rem; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .75rem;
+}
+.section-head h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+
+/* ════════════════════ Categories ════════════════════ */
+.categories { padding: 6rem 0; }
+
+.categories__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.cat-card {
+  display: flex; flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: transform var(--dur-norm) var(--ease-out),
+              box-shadow var(--dur-norm) var(--ease-out);
+}
+.cat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+
+.cat-card__img-wrap {
+  aspect-ratio: 4/5; overflow: hidden;
+}
+.cat-card__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+.cat-card:hover .cat-card__img { transform: scale(1.06); }
+
+.cat-card__info {
+  padding: 1.5rem;
+}
+.cat-card__tag {
+  font-size: .6rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold);
+}
+.cat-card__info h3 {
+  font-size: 1.5rem;
+  color: var(--cream);
+  margin-top: .25rem;
+}
+
+/* ════════════════════ Featured ════════════════════ */
+.featured { padding: 2rem 0 6rem; }
+.featured__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+.featured__cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* ════════════════════ Story Preview ════════════════════ */
+.story-preview {
+  padding: 6rem 0;
+  background: var(--bg-rich);
+}
+.story-preview__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.story-preview__img-wrap {
+  border-radius: 6px; overflow: hidden;
+  box-shadow: 8px 8px 0 var(--gold-dim);
+}
+.story-preview__img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+}
+
+.story-preview__text h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  margin-bottom: 1.5rem;
+}
+.story-preview__text h2 em {
+  color: var(--gold); font-style: italic;
+}
+.story-preview__text p {
+  color: var(--sand);
+  font-size: 1rem; line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+.story-preview__text .btn {
+  margin-top: 1rem;
+}
+
+/* ════════════════════ Responsive ════════════════════ */
+@media (max-width: 992px) {
+  .categories__grid { grid-template-columns: repeat(2, 1fr); }
+  .story-preview__inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 576px) {
+  .categories__grid { grid-template-columns: 1fr; }
+  .hero__actions { flex-direction: column; }
+  .hero__actions .btn { width: 100%; }
+  
+  .categories { padding: 4rem 0; }
+  .featured { padding: 1rem 0 4rem; }
+  .story-preview { padding: 4rem 0; }
+  .section-head { margin-bottom: 2.5rem; }
+}

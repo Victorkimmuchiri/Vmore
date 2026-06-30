@@ -1,0 +1,129 @@
+.catalog__header {
+  padding: 8rem 0 2.5rem;
+  background: var(--bg-rich);
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.catalog__eyebrow {
+  display: block;
+  font-size: .65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.catalog__header h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--cream);
+}
+
+.catalog__body {
+  padding: 4rem 0 8rem;
+}
+
+/* Toolbar */
+.catalog__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.catalog__filters {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.catalog__filter-btn {
+  padding: .55rem 1.2rem;
+  background: transparent;
+  color: var(--sand);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 100px;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .5px;
+  transition: all var(--dur-fast);
+  cursor: pointer;
+}
+
+.catalog__filter-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.catalog__filter-btn.active {
+  background: var(--gold);
+  color: var(--bg-deep);
+  border-color: var(--gold);
+}
+
+.catalog__sort {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.catalog__sort-select {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, .08);
+  color: var(--cream);
+  padding: .5rem .8rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.catalog__sort-select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.catalog__sort-select option {
+  background: var(--bg-rich);
+}
+
+.catalog__count {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3.5rem;
+}
+
+.catalog__empty {
+  text-align: center;
+  padding: 6rem 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 576px) {
+  .catalog__toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catalog__header {
+    padding: 8rem 0 3rem;
+  }
+
+  .catalog__body {
+    padding: 3rem 0 5rem;
+  }
+
+  .catalog__grid {
+    gap: 2rem;
+  }
+}

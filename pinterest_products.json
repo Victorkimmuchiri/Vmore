@@ -1,0 +1,54 @@
+[
+  {
+    "id": 9,
+    "name": "Brass Cowrie Shell Earrings",
+    "price": 2500,
+    "currency": "KSh",
+    "category": "Jewelry",
+    "tag": "Pinterest",
+    "featured": true,
+    "image": "https://i.pinimg.com/736x/88/ab/c7/88abc77af5b5d8a0c20a442e971d6f52.jpg",
+    "description": "Handcrafted brass cowrie shell earrings honoring African heritage.",
+    "material": "Brass",
+    "artisan": "West African Artisans"
+  },
+  {
+    "id": 10,
+    "name": "Maasai Beaded Collar Necklace",
+    "price": 6500,
+    "currency": "KSh",
+    "category": "Accessories",
+    "tag": "Pinterest",
+    "featured": true,
+    "image": "https://i.pinimg.com/736x/21/df/f5/21dff5a2c1404c0ab6134b172a6b4a3a.jpg",
+    "description": "Intricate beaded collar necklace crafted by Maasai women.",
+    "material": "Glass Beads, Leather",
+    "artisan": "Maasai Collective"
+  },
+  {
+    "id": 11,
+    "name": "Fulani Gold Twist Earrings",
+    "price": 8200,
+    "currency": "KSh",
+    "category": "Jewelry",
+    "tag": "Pinterest",
+    "featured": true,
+    "image": "https://i.pinimg.com/736x/5c/7f/db/5c7fdb7b2a6d71bcf1a71efc5e3f4e8b.jpg",
+    "description": "Traditional Fulani twist earrings symbolizing wealth and beauty.",
+    "material": "Gold Plated",
+    "artisan": "Fulani Artisans"
+  },
+  {
+    "id": 12,
+    "name": "Recycled Glass Trade Bead Bracelet",
+    "price": 1800,
+    "currency": "KSh",
+    "category": "Jewelry",
+    "tag": "Pinterest",
+    "featured": false,
+    "image": "https://i.pinimg.com/736x/6f/90/18/6f9018e6c70b8c8d8b9e4a8b79b69b7f.jpg",
+    "description": "Bracelet made from recycled glass trade beads.",
+    "material": "Recycled Glass",
+    "artisan": "Ghanaian Artisans"
+  }
+]
