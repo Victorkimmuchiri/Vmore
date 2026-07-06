@@ -5,14 +5,15 @@
   background: transparent;
 }
 .nav--scrolled {
-  background: rgba(13,11,9,.92);
+  background: rgba(13,11,9,.96);
   backdrop-filter: blur(12px);
   padding: .8rem 0;
-  border-bottom: 1px solid var(--gold-dim);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .nav__inner {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
 }
 
 /* ── Brand ── */
@@ -61,6 +62,11 @@
 .nav__links a:hover::after,
 .nav__links a.active::after { width: 100%; }
 
+/* ── Search ── */
+.nav__search-wrapper {
+  display: flex; flex: 1; max-width: 320px;
+}
+
 /* ── Actions ── */
 .nav__actions { display: flex; align-items: center; gap: .5rem; }
 
@@ -100,6 +106,10 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
+  .nav__search-wrapper {
+    display: none;
+  }
+
   .nav__hamburger { display: flex; }
 
   .nav__overlay {

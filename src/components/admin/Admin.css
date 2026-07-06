@@ -64,17 +64,69 @@
   margin-bottom: 2rem;
 }
 
+.admin-page-head h1 {
+  color: var(--cream);
+  font-size: 1.75rem;
+  margin: 0;
+}
+
 .admin-card {
   background: var(--bg-card);
   padding: 2rem;
   border-radius: 6px;
   margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-card h3 {
+  color: var(--cream);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: var(--sand);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.75rem;
+  background: var(--bg-rich);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--cream);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color var(--dur-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--gold);
 }
 
 .admin-table-wrap {
   background: var(--bg-card);
   border-radius: 6px;
   overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-table {
@@ -86,13 +138,20 @@
   padding: 1rem 1.5rem;
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: var(--cream);
 }
 
 .admin-table th {
+  background: rgba(255, 255, 255, 0.02);
   color: var(--sand);
-  font-weight: 500;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.8rem;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .admin-login-page {

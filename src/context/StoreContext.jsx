@@ -16,6 +16,10 @@ export const StoreProvider = ({ children }) => {
     const savedWishlist = localStorage.getItem('vmore_wishlist');
     return savedWishlist ? JSON.parse(savedWishlist) : [];
   });
+  const [reviews, setReviews] = useState(() => {
+    const savedReviews = localStorage.getItem('vmore_reviews');
+    return savedReviews ? JSON.parse(savedReviews) : {};
+  });
   const [siteContent, setSiteContent] = useState({
     heroTitle: 'Heritage in Every Thread',
     heroSubtitle: 'Discover handcrafted African artifacts, textiles, and jewelry that tell a story of rhythm, culture, and timeless artistry.',
@@ -59,6 +63,10 @@ export const StoreProvider = ({ children }) => {
     localStorage.setItem('vmore_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
+  useEffect(() => {
+    localStorage.setItem('vmore_reviews', JSON.stringify(reviews));
+  }, [reviews]);
+
   const addToCart = useCallback((product, quantity = 1) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === product.id);
@@ -95,6 +103,25 @@ export const StoreProvider = ({ children }) => {
 
   const isWishlisted = useCallback((id) => wishlist.includes(id), [wishlist]);
 
+  const getProductReviews = useCallback((productId) => {
+    return reviews[productId] || [];
+  }, [reviews]);
+
+  const getProductRating = useCallback((productId) => {
+    const productReviews = reviews[productId] || [];
+    if (productReviews.length === 0) return null;
+    const avgRating = productReviews.reduce((sum, r) => sum + r.rating, 0) / productReviews.length;
+    return { rating: Math.round(avgRating * 10) / 10, reviewCount: productReviews.length };
+  }, [reviews]);
+
+  const addReview = useCallback((review) => {
+    const productId = review.productId;
+    setReviews(prev => ({
+      ...prev,
+      [productId]: [...(prev[productId] || []), review]
+    }));
+  }, []);
+
   const cartCount = cart.reduce((t, i) => t + i.quantity, 0);
   const cartTotal = cart.reduce((t, i) => t + i.price * i.quantity, 0);
 
@@ -104,6 +131,7 @@ export const StoreProvider = ({ children }) => {
       addToCart, removeFromCart, updateQuantity,
       isCartOpen, toggleCart,
       wishlist, toggleWishlist, isWishlisted,
+      reviews, getProductReviews, addReview, getProductRating,
       siteContent
     }}>
       {children}
