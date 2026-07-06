@@ -2,12 +2,13 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../context/StoreContext';
 import ProductCard from '../components/ProductCard';
+import ReviewSection from '../components/ReviewSection';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products, addToCart, toggleWishlist, isWishlisted } = useContext(StoreContext);
+  const { products, addToCart, toggleWishlist, isWishlisted, getProductReviews, addReview } = useContext(StoreContext);
   const [quantity, setQuantity] = useState(1);
 
   const product = products.find(p => p.id === parseInt(id));
@@ -89,6 +90,15 @@ const ProductDetails = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Reviews */}
+      <div className="container">
+        <ReviewSection 
+          productId={product.id}
+          reviews={getProductReviews(product.id)}
+          onAddReview={addReview}
+        />
       </div>
 
       {/* Related */}
