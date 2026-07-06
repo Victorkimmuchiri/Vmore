@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { StoreContext } from '../context/StoreContext';
-import SearchBar from './SearchBar';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -46,11 +45,6 @@ const Navbar = () => {
           <Link to="/our-story" className={isActive('/our-story')}>Our Story</Link>
           <Link to="/contact" className={isActive('/contact')}>Contact</Link>
         </nav>
-
-        {/* Search Bar */}
-        <div className="nav__search-wrapper">
-          <SearchBar />
-        </div>
 
         {/* Actions */}
         <div className="nav__actions">
