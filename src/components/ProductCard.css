@@ -1,13 +1,7 @@
 .pcard {
   opacity: 0;
   animation: cardIn .5s var(--ease-out) forwards;
-  transition: transform var(--dur-norm) var(--ease-out);
 }
-
-.pcard:hover {
-  transform: translateY(-4px);
-}
-
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -82,29 +76,6 @@
   transition: color var(--dur-fast);
 }
 .pcard__name:hover { color: var(--gold); }
-
-.pcard__rating {
-  display: flex; align-items: center; gap: .4rem;
-  margin: .25rem 0;
-}
-
-.pcard__stars {
-  display: flex; gap: 2px;
-}
-
-.pcard__star {
-  width: 12px; height: 12px;
-  color: var(--gold-dim);
-  transition: color var(--dur-fast);
-}
-
-.pcard__star--filled {
-  color: var(--gold);
-}
-
-.pcard__review-count {
-  font-size: .7rem; color: var(--muted);
-}
 
 .pcard__price {
   font-size: .9rem; color: var(--sand);

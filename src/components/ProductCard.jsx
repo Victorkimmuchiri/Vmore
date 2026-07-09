@@ -4,9 +4,8 @@ import { StoreContext } from '../context/StoreContext';
 import './ProductCard.css';
 
 const ProductCard = ({ product, index = 0 }) => {
-  const { addToCart, toggleWishlist, isWishlisted, getProductRating } = useContext(StoreContext);
+  const { addToCart, toggleWishlist, isWishlisted } = useContext(StoreContext);
   const wishlisted = isWishlisted(product.id);
-  const productRating = getProductRating(product.id);
 
   return (
     <article className="pcard" style={{ animationDelay: `${index * .08}s` }}>
@@ -37,21 +36,6 @@ const ProductCard = ({ product, index = 0 }) => {
       <div className="pcard__info">
         <span className="pcard__tag">{product.tag}</span>
         <Link to={`/product/${product.id}`} className="pcard__name">{product.name}</Link>
-        
-        {/* Rating */}
-        {productRating && (
-          <div className="pcard__rating">
-            <div className="pcard__stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className={`pcard__star ${i < Math.floor(productRating.rating) ? 'pcard__star--filled' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              ))}
-            </div>
-            <span className="pcard__review-count">({productRating.reviewCount})</span>
-          </div>
-        )}
-
         <span className="pcard__price">{product.currency} {product.price.toLocaleString()}</span>
       </div>
     </article>

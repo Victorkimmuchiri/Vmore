@@ -11,8 +11,6 @@ const AdminProducts = () => {
   const [editingId, setEditingId] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
 
   useEffect(() => { fetchProducts(); }, []);
 
@@ -116,16 +114,6 @@ const AdminProducts = () => {
     }
   };
 
-  // Filter products
-  const filteredProducts = products.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.category.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = filterCategory === 'All' || p.category === filterCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-  const categories = ['All', ...new Set(products.map(p => p.category))];
-
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -165,49 +153,11 @@ const AdminProducts = () => {
         </form>
       </div>
 
-      <div className="admin-filters" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{
-            flex: 1,
-            minWidth: '200px',
-            padding: '0.6rem 0.8rem',
-            background: 'var(--bg-card)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            color: 'var(--cream)',
-            borderRadius: '4px',
-            fontFamily: 'inherit'
-          }}
-        />
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-          style={{
-            padding: '0.6rem 0.8rem',
-            background: 'var(--bg-card)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            color: 'var(--cream)',
-            borderRadius: '4px',
-            fontFamily: 'inherit'
-          }}
-        >
-          {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
-        <span style={{ color: 'var(--sand)', fontSize: '0.85rem' }}>
-          {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
-        </span>
-      </div>
-
       <div className="admin-table-wrap">
         <table className="admin-table">
           <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
           <tbody>
-            {filteredProducts.map(p => (
+            {products.map(p => (
               <tr key={p.id}>
                 <td><img src={p.image} alt={p.name} style={{width:'40px',height:'40px',objectFit:'cover',borderRadius:'4px'}} /></td>
                 <td>{p.name}</td>
@@ -221,7 +171,7 @@ const AdminProducts = () => {
                 </td>
               </tr>
             ))}
-            {filteredProducts.length===0 && <tr><td colSpan="5" style={{textAlign:'center', padding:'2rem'}}>No products found</td></tr>}
+            {products.length===0 && <tr><td colSpan="5" style={{textAlign:'center'}}>No products found</td></tr>}
           </tbody>
         </table>
       </div>

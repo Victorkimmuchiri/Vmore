@@ -11,7 +11,6 @@ const Catalog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeCat, setActiveCat] = useState('All Pieces');
   const [sortBy, setSortBy] = useState('featured');
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const cat = searchParams.get('cat');
@@ -34,15 +33,6 @@ const Catalog = () => {
     ? [...products]
     : products.filter(p => p.category === activeCat);
 
-  // Apply search filter
-  if (searchQuery.trim()) {
-    filtered = filtered.filter(p => 
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.tag && p.tag.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
-  }
-
   if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
   if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
   if (sortBy === 'featured') filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
@@ -57,22 +47,6 @@ const Catalog = () => {
       </div>
 
       <div className="container catalog__body">
-        {/* Search Bar */}
-        <div className="catalog__search-wrapper">
-          <input
-            type="text"
-            className="catalog__search-input"
-            placeholder="Search pieces..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Search products"
-          />
-          <svg className="catalog__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.35-4.35"></path>
-          </svg>
-        </div>
-
         <div className="catalog__toolbar">
           <div className="catalog__filters">
             {CATEGORIES.map(cat => (

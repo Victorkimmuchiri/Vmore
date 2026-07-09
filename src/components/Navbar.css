@@ -5,15 +5,14 @@
   background: transparent;
 }
 .nav--scrolled {
-  background: rgba(13,11,9,.96);
+  background: rgba(13,11,9,.92);
   backdrop-filter: blur(12px);
   padding: .8rem 0;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--gold-dim);
 }
 
 .nav__inner {
-  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  display: flex; align-items: center; justify-content: space-between;
 }
 
 /* ── Brand ── */
