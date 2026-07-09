@@ -35,8 +35,8 @@ const AdminMessages = () => {
         {messages.length === 0 ? <p>No messages found.</p> : null}
         {messages.map(m => (
           <div key={m.id} className="admin-card">
-            <div style={{display:'flex',justifyContent:'space-between',marginBottom:'1rem'}}>
-              <strong>{m.name} ({m.email})</strong>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:'1rem',flexWrap:'wrap',gap:'0.5rem'}}>
+              <strong>{m.name} ({m.email}) {m.phone && <span style={{color:'var(--gold)',marginLeft:'0.5rem'}}>📞 {m.phone}</span>}</strong>
               <small style={{color:'var(--muted)'}}>{new Date(m.createdAt).toLocaleString()}</small>
             </div>
             <p style={{whiteSpace:'pre-wrap'}}>{m.message}</p>

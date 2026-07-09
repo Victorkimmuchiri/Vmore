@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { PINTEREST_PRODUCTS } from '../data/pinterest_data';
+import { COLLECTION_PRODUCTS } from '../data/collection_data';
 
 export const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
-  const [products, setProducts] = useState(PINTEREST_PRODUCTS);
+  const [products, setProducts] = useState(COLLECTION_PRODUCTS);
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('vmore_cart');
     return savedCart ? JSON.parse(savedCart) : [];

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+﻿import React, { useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../context/StoreContext';
 import ProductCard from '../components/ProductCard';
@@ -53,9 +53,30 @@ const Home = () => {
 
         <div className="categories__grid reveal" ref={addRevealRef}>
           {[
-            { name: 'Fine Jewelry', tag: 'Sacred Melody', cat: 'Jewelry', img: '/images/adinkra-pendant.png' },
-            { name: 'Textiles', tag: 'Deep Resonance', cat: 'Textiles', img: '/images/sankofa-wrap.png' },
-            { name: 'Accessories', tag: 'High Vibe', cat: 'Accessories', img: '/images/treble-brooch.png' },
+            {
+              name: 'Jewels',
+              tag: 'Brass · Beaded · Bone · Shell',
+              cat: 'Jewelry',
+              img: '/images/Products/brass-africa-set.jpeg'
+            },
+            {
+              name: 'Bags',
+              tag: 'Kiondoo · Gunia · Rope · Summer',
+              cat: 'Accessories',
+              img: '/images/Products/kiondoo-sisal-bag.jpeg'
+            },
+            {
+              name: 'Textiles',
+              tag: 'Lesso · Shuka · Kitenge · KR Blankets',
+              cat: 'Textiles',
+              img: '/images/Products/beach-lesso-red.jpeg'
+            },
+            {
+              name: 'Musical Art',
+              tag: 'G Clef Wall Hangings',
+              cat: 'Accessories',
+              img: '/images/Products/g-clef-wall-hanging.jpeg'
+            },
           ].map((c, i) => (
             <Link to={`/collection?cat=${c.cat}`} key={i} className="cat-card">
               <div className="cat-card__img-wrap">
@@ -68,6 +89,7 @@ const Home = () => {
             </Link>
           ))}
         </div>
+
       </section>
 
       {/* ════ Featured Pieces ════ */}

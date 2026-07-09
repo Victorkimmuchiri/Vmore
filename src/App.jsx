@@ -12,10 +12,14 @@ import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
+import AdminStory from './pages/admin/AdminStory';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminMessages from './pages/admin/AdminMessages';
 import AdminSettings from './pages/admin/AdminSettings';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from './firebase';
 
 /* scroll to top on route change */
 function ScrollToTop() {
@@ -24,8 +28,34 @@ function ScrollToTop() {
   return null;
 }
 
+/* Traffic tracker hook */
+function useTrafficTracker() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    const logTraffic = async () => {
+      // Don't track admin pages to keep logs clean
+      if (location.pathname.startsWith('/admin')) return;
+      try {
+        await addDoc(collection(db, 'traffic'), {
+          path: location.pathname,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent
+        });
+      } catch (err) {
+        console.error("Traffic logging failed:", err);
+      }
+    };
+    logTraffic();
+  }, [location.pathname]);
+}
+
 function App() {
   const [ready, setReady] = useState(false);
+  const location = useLocation();
+  
+  // Track page views
+  useTrafficTracker();
 
   useEffect(() => {
     /* Let fonts + images load, then hide splash */
@@ -59,9 +89,11 @@ function App() {
             
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminProducts />} />
+              <Route index element={<AdminDashboard />} />
               <Route path="login" element={<AdminLogin />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="products" element={<AdminProducts />} />
+              <Route path="story" element={<AdminStory />} />
               <Route path="orders" element={<AdminOrders />} />
               <Route path="messages" element={<AdminMessages />} />
               <Route path="settings" element={<AdminSettings />} />

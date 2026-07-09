@@ -4,7 +4,7 @@ import { db } from '../firebase';
 import './Contact.css';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState('idle');
 
   const handleSubmit = async (e) => {
@@ -16,7 +16,7 @@ const Contact = () => {
         createdAt: new Date().toISOString()
       });
       setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
       console.error(err);
       setStatus('error');
@@ -31,7 +31,7 @@ const Contact = () => {
           <p>We'd love to hear from you. Reach out with any questions about our artisan pieces or your order.</p>
           <ul>
             <li>Email: info@vmore.co.ke</li>
-            <li>Phone: +254 700 000 000</li>
+            <li>Phone: +254 723 740 714</li>
             <li>Location: Nairobi, Kenya</li>
           </ul>
         </div>
@@ -60,6 +60,15 @@ const Contact = () => {
             />
           </div>
           <div className="form-group">
+            <label>Phone Number</label>
+            <input 
+              type="tel" 
+              placeholder="e.g. +254 722 000 000"
+              value={formData.phone} 
+              onChange={e => setFormData({...formData, phone: e.target.value})} 
+            />
+          </div>
+          <div className="form-group">
             <label>Message</label>
             <textarea 
               required 
@@ -68,6 +77,7 @@ const Contact = () => {
               onChange={e => setFormData({...formData, message: e.target.value})} 
             />
           </div>
+
           <button type="submit" className="btn btn-gold" disabled={status === 'submitting'}>
             {status === 'submitting' ? 'Sending...' : 'Send Message'}
           </button>

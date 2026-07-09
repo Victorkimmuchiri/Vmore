@@ -10,10 +10,12 @@ const AdminLayout = () => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, user => {
-      if (!user) navigate('/admin/login');
+      if (!user && location.pathname !== '/admin/login') {
+        navigate('/admin/login');
+      }
     });
     return unsub;
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -28,15 +30,30 @@ const AdminLayout = () => {
     <div className="admin-layout">
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <h2>VMORE Admin</h2>
+          <h2>VMORE</h2>
+          <span>Admin Panel</span>
         </div>
         <nav className="admin-nav">
-          <Link to="/admin/products" className={location.pathname.includes('/products') ? 'active' : ''}>Products</Link>
-          <Link to="/admin/orders" className={location.pathname.includes('/orders') ? 'active' : ''}>Orders</Link>
-          <Link to="/admin/messages" className={location.pathname.includes('/messages') ? 'active' : ''}>Messages</Link>
-          <Link to="/admin/settings" className={location.pathname.includes('/settings') ? 'active' : ''}>Site Settings</Link>
+          <Link to="/admin" className={location.pathname === '/admin' || location.pathname.includes('/dashboard') ? 'active' : ''}>
+            📊 Dashboard
+          </Link>
+          <Link to="/admin/products" className={location.pathname.includes('/products') ? 'active' : ''}>
+            ✨ Products (CRUD)
+          </Link>
+          <Link to="/admin/story" className={location.pathname.includes('/story') ? 'active' : ''}>
+            📖 Our Story (CRUD)
+          </Link>
+          <Link to="/admin/orders" className={location.pathname.includes('/orders') ? 'active' : ''}>
+            🛒 Orders
+          </Link>
+          <Link to="/admin/messages" className={location.pathname.includes('/messages') ? 'active' : ''}>
+            ✉️ Messages
+          </Link>
+          <Link to="/admin/settings" className={location.pathname.includes('/settings') ? 'active' : ''}>
+            ⚙️ Hero Settings
+          </Link>
         </nav>
-        <button onClick={handleLogout} className="admin-logout">Logout</button>
+        <button onClick={handleLogout} className="admin-logout">Sign Out →</button>
       </aside>
       <main className="admin-main">
         <Outlet />
