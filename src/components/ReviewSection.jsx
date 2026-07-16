@@ -33,7 +33,7 @@ const ReviewSection = ({ productId, reviews = [], onAddReview }) => {
           className="reviews__add-btn"
           onClick={() => setShowForm(v => !v)}
         >
-          {showForm ? 'Cancel' : 'Write a Review'}
+          <span>{showForm ? '✕ Cancel' : '✦ Write a Review'}</span>
         </button>
       </div>
 
@@ -92,36 +92,61 @@ const ReviewSection = ({ productId, reviews = [], onAddReview }) => {
           </div>
 
           <div className="reviews__list">
-            {getSortedReviews().map((review, idx) => (
-              <div key={idx} className="reviews__item">
-                <div className="reviews__item-header">
-                  <div className="reviews__item-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className={`reviews__star ${i < review.rating ? 'reviews__star--filled' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                      </svg>
-                    ))}
+            {getSortedReviews().map((review, idx) => {
+              const initials = (review.name || '?')
+                .split(' ')
+                .map(w => w[0])
+                .slice(0, 2)
+                .join('')
+                .toUpperCase();
+              return (
+                <div key={idx} className="reviews__item">
+                  {/* Decorative quote mark */}
+                  <span className="reviews__item-quote" aria-hidden="true">&ldquo;</span>
+
+                  <div className="reviews__item-header">
+                    <div className="reviews__item-rating">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`reviews__star ${i < review.rating ? 'reviews__star--filled' : ''}`}
+                          width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                          style={i < review.rating ? { animationDelay: `${i * 0.06}s` } : {}}
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      ))}
+                    </div>
+                    <span className="reviews__item-date">
+                      {new Date(review.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      })}
+                    </span>
                   </div>
-                  <span className="reviews__item-date">
-                    {new Date(review.date).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'short', 
-                      day: 'numeric' 
-                    })}
-                  </span>
+
+                  <h4 className="reviews__item-title">{review.title}</h4>
+                  <p className="reviews__item-text">{review.text}</p>
+
+                  <div className="reviews__item-author">
+                    <div className="reviews__item-avatar" aria-hidden="true">{initials}</div>
+                    <span className="reviews__item-name">{review.name}</span>
+                    {review.approved && (
+                      <span className="reviews__item-verified" title="Verified purchase">
+                        ✓ Verified
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <h4 className="reviews__item-title">{review.title}</h4>
-                <p className="reviews__item-text">{review.text}</p>
-                <div className="reviews__item-author">
-                  <span className="reviews__item-name">{review.name}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </>
       ) : (
         <div className="reviews__empty">
-          <p>No reviews yet. Be the first to review this piece!</p>
+          <div className="reviews__empty-icon">✦</div>
+          <p>No reviews yet. Be the first to share your experience with this piece!</p>
         </div>
       )}
     </section>
