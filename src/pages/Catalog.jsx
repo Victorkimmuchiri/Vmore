@@ -1,4 +1,4 @@
-﻿import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { StoreContext } from '../context/StoreContext';
 import ProductCard from '../components/ProductCard';
@@ -85,8 +85,16 @@ const Catalog = () => {
 
   const currentSubCats = SUBCATEGORIES[activeCat] || [];
 
-  if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
-  if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
+  const getNumericPrice = (p) => {
+    if (typeof p.price === 'number') return p.price;
+    if (!p.price) return 0;
+    const cleaned = String(p.price).replace(/[^\d.]/g, '');
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? 0 : num;
+  };
+
+  if (sortBy === 'price-low') filtered.sort((a, b) => getNumericPrice(a) - getNumericPrice(b));
+  if (sortBy === 'price-high') filtered.sort((a, b) => getNumericPrice(b) - getNumericPrice(a));
   if (sortBy === 'featured') filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
   // Group products by category+subcategory for "All Pieces" view
@@ -130,6 +138,7 @@ const Catalog = () => {
           </p>
         </div>
       </div>
+      <br></br>
 
       {/* ── Category Cards ── */}
       {activeCat === 'All Pieces' && !searchQuery && (
@@ -149,6 +158,7 @@ const Catalog = () => {
               </div>
             </button>
           ))}
+          <br></br>
         </div>
       )}
 

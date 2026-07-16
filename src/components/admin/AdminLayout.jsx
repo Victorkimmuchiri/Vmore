@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -7,10 +7,14 @@ import './Admin.css';
 const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, user => {
-      if (!user && location.pathname !== '/admin/login') {
+    const unsub = onAuthStateChanged(auth, u => {
+      setUser(u);
+      setCheckingAuth(false);
+      if (!u && location.pathname !== '/admin/login') {
         navigate('/admin/login');
       }
     });
@@ -22,8 +26,30 @@ const AdminLayout = () => {
     navigate('/');
   };
 
+  if (checkingAuth) {
+    return (
+      <div className="admin-loading-container" style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        background: 'var(--bg-deep, #0c0c0e)',
+        color: 'var(--gold, #d4af37)',
+        fontFamily: 'var(--font-sans, sans-serif)',
+        fontSize: '1.25rem',
+        letterSpacing: '0.1em'
+      }}>
+        Checking credentials...
+      </div>
+    );
+  }
+
   if (location.pathname === '/admin/login') {
     return <Outlet />;
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (
@@ -48,6 +74,15 @@ const AdminLayout = () => {
           </Link>
           <Link to="/admin/messages" className={location.pathname.includes('/messages') ? 'active' : ''}>
             ✉️ Messages
+          </Link>
+          <Link to="/admin/subscribers" className={location.pathname.includes('/subscribers') ? 'active' : ''}>
+            📧 Subscribers
+          </Link>
+          <Link to="/admin/campaigns" className={location.pathname.includes('/campaigns') ? 'active' : ''}>
+            ✉️ Email Campaigns
+          </Link>
+          <Link to="/admin/reviews" className={location.pathname.includes('/reviews') ? 'active' : ''}>
+            💬 Product Reviews
           </Link>
           <Link to="/admin/settings" className={location.pathname.includes('/settings') ? 'active' : ''}>
             ⚙️ Hero Settings

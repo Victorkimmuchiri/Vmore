@@ -92,23 +92,15 @@
   border-color: rgba(212,175,55,0.3);
 }
 
-/* Quick add */
-.pcard__quick-add {
-  position: absolute; 
-  bottom: -60px; 
-  left: 50%; 
-  transform: translateX(-50%);
-  width: calc(100% - 2rem);
-  padding: .8rem;
-  font-size: .75rem;
-  z-index: 3;
-  transition: bottom var(--dur-norm) var(--ease-out),
-              background var(--dur-fast) var(--ease-out),
-              box-shadow var(--dur-fast) var(--ease-out);
-}
-
-.pcard:hover .pcard__quick-add { 
-  bottom: 16px; 
+/* Card Add to Cart Button */
+.pcard__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 /* Info */

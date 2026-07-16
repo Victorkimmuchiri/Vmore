@@ -94,6 +94,7 @@ const Home = () => {
 
       {/* ════ Featured Pieces ════ */}
       <section className="featured container" ref={addRevealRef}>
+        <br></br>
         <div className="section-head reveal" ref={addRevealRef}>
           <span className="section-head__eyebrow">Curated Selection</span>
           <h2>Featured Pieces</h2>
@@ -106,6 +107,7 @@ const Home = () => {
         </div>
 
         <div className="featured__cta reveal" ref={addRevealRef}>
+          <br></br>
           <Link to="/collection" className="btn btn-outline">View All Pieces</Link>
         </div>
       </section>

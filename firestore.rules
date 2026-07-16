@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Products: Anyone can read, only authenticated admin users can write/edit/delete
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Story chapters: Anyone can read, only authenticated admin users can write/edit/delete
+    match /story_chapters/{chapterId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Site settings: Anyone can read, only authenticated admin users can write/edit/delete
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Contact Messages: Anyone can submit a message, but only authenticated admin users can read, update, or delete
+    match /messages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Customer Orders: Anyone can submit a new order, but only authenticated admin users can read, update, or delete
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Traffic tracking logs: Anyone can log a page visit, but only authenticated admin users can read, update, or delete
+    match /traffic/{trafficId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Subscribers: Anyone can subscribe and check their own status, but only authenticated admins can list/update/delete
+    match /subscribers/{subscriberId} {
+      allow create: if true;
+      allow get: if true;
+      allow list, update, delete: if request.auth != null;
+    }
+
+    // Campaigns: Only authenticated admin users can read, write, or delete
+    match /campaigns/{campaignId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Sent Emails Outbox Logs: Only authenticated admin users can read, write, or delete
+    match /sent_emails/{logId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Product reviews: Anyone can read or write reviews, but only authenticated admins can approve or delete them
+    match /reviews/{reviewId} {
+      allow read, create: if true;
+      allow update, delete: if request.auth != null;
+    }
+  }
+}

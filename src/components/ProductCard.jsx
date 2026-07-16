@@ -12,7 +12,16 @@ const ProductCard = ({ product, index = 0 }) => {
     <article className="pcard" style={{ animationDelay: `${index * .08}s` }}>
       <div className="pcard__img-wrap">
         <Link to={`/product/${product.id}`}>
-          <img src={product.image} alt={product.name} className="pcard__img" loading="lazy" />
+          <img
+            src={product.image || '/images/Products/brass-africa-set.jpeg'}
+            alt={product.name}
+            className="pcard__img"
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '/images/Products/brass-africa-set.jpeg';
+            }}
+          />
         </Link>
 
         {product.featured && <span className="pcard__badge">Featured</span>}
@@ -28,10 +37,6 @@ const ProductCard = ({ product, index = 0 }) => {
           </svg>
         </button>
 
-        {/* Quick add */}
-        <button className="pcard__quick-add btn btn-gold" onClick={() => addToCart(product)}>
-          Add to Cart
-        </button>
       </div>
 
       <div className="pcard__info">
@@ -53,6 +58,16 @@ const ProductCard = ({ product, index = 0 }) => {
         )}
 
         <span className="pcard__price">{product.currency} {product.price.toLocaleString()}</span>
+
+        {/* Static Add to Cart Button */}
+        <button className="pcard__btn btn btn-gold" onClick={() => addToCart(product)}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', verticalAlign: 'middle' }}>
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          Add to Cart
+        </button>
       </div>
     </article>
   );

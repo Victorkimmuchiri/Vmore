@@ -18,6 +18,9 @@ import AdminStory from './pages/admin/AdminStory';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminMessages from './pages/admin/AdminMessages';
 import AdminSettings from './pages/admin/AdminSettings';
+import AdminSubscribers from './pages/admin/AdminSubscribers';
+import AdminCampaigns from './pages/admin/AdminCampaigns';
+import AdminReviews from './pages/admin/AdminReviews';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -96,6 +99,9 @@ function App() {
               <Route path="story" element={<AdminStory />} />
               <Route path="orders" element={<AdminOrders />} />
               <Route path="messages" element={<AdminMessages />} />
+              <Route path="subscribers" element={<AdminSubscribers />} />
+              <Route path="campaigns" element={<AdminCampaigns />} />
+              <Route path="reviews" element={<AdminReviews />} />
               <Route path="settings" element={<AdminSettings />} />
             </Route>
           </Routes>

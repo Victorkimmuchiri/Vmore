@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { COLLECTION_PRODUCTS } from '../data/collection_data';
 
@@ -18,7 +18,7 @@ export const StoreProvider = ({ children }) => {
   });
   const [reviews, setReviews] = useState(() => {
     const savedReviews = localStorage.getItem('vmore_reviews');
-    return savedReviews ? JSON.parse(savedReviews) : {};
+    return savedReviews ? (Array.isArray(JSON.parse(savedReviews)) ? JSON.parse(savedReviews) : []) : [];
   });
   const [siteContent, setSiteContent] = useState({
     heroTitle: 'Heritage in Every Thread',
@@ -51,8 +51,21 @@ export const StoreProvider = ({ children }) => {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'reviews'));
+        if (!querySnapshot.empty) {
+          const fetched = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          setReviews(fetched);
+        }
+      } catch (err) {
+        console.log("Firebase not configured or empty for reviews, using local defaults.");
+      }
+    };
+
     fetchProducts();
     fetchSettings();
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -104,22 +117,27 @@ export const StoreProvider = ({ children }) => {
   const isWishlisted = useCallback((id) => wishlist.includes(id), [wishlist]);
 
   const getProductReviews = useCallback((productId) => {
-    return reviews[productId] || [];
+    return reviews.filter(r => String(r.productId) === String(productId) && r.approved === true);
   }, [reviews]);
 
   const getProductRating = useCallback((productId) => {
-    const productReviews = reviews[productId] || [];
+    const productReviews = reviews.filter(r => String(r.productId) === String(productId) && r.approved === true);
     if (productReviews.length === 0) return null;
     const avgRating = productReviews.reduce((sum, r) => sum + r.rating, 0) / productReviews.length;
     return { rating: Math.round(avgRating * 10) / 10, reviewCount: productReviews.length };
   }, [reviews]);
 
-  const addReview = useCallback((review) => {
-    const productId = review.productId;
-    setReviews(prev => ({
-      ...prev,
-      [productId]: [...(prev[productId] || []), review]
-    }));
+  const addReview = useCallback(async (review) => {
+    const newReview = { ...review, approved: false };
+    try {
+      const docRef = await addDoc(collection(db, 'reviews'), newReview);
+      setReviews(prev => [...prev, { id: docRef.id, ...newReview }]);
+      alert("Thank you! Your review has been submitted and is pending moderation.");
+    } catch (err) {
+      console.error("Error adding review:", err);
+      setReviews(prev => [...prev, { id: Date.now().toString(), ...newReview }]);
+      alert("Thank you! Your review has been submitted (Offline Mode).");
+    }
   }, []);
 
   const cartCount = cart.reduce((t, i) => t + i.quantity, 0);
